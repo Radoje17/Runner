@@ -1,0 +1,7 @@
+name: Runner
+version: ${project.version}
+main: me.radoje17.runner.Runner
+depend: [WorldEdit]
+commands:
+  join:
+    description: Udji u igru
