@@ -1,5 +1,6 @@
 package me.radoje17.runner;
 
+import me.radoje17.runner.utils.ConfigUtils;
 import me.radoje17.runner.utils.PlayerUtils;
 import me.radoje17.runner.utils.UUIDUtils;
 import org.bukkit.Bukkit;
@@ -32,6 +33,8 @@ public final class Runner extends JavaPlugin {
         new PlayerUtils();
         new UUIDUtils();
         new RunnerGameManager();
+
+        new ConfigUtils();
 
         new File(getDataFolder() + "/schematics").mkdirs();
 
