@@ -81,7 +81,7 @@ public class RunnerGame {
                     active = true;
                     Runner.getInstance().getRunnerGameManager().activeRunnerGameList.add(RunnerGame.this);
                     Runner.getInstance().getRunnerGameManager().waitingRunnerGameList.remove(RunnerGame.this);
-                    //Runner.getInstance().getRunnerGameManager().getGame(arenaName);
+                    Runner.getInstance().getRunnerGameManager().getGame(arenaName);
 
                     Collections.shuffle(spawnPoints);
                     Iterator<Location> iter = spawnPoints.iterator();

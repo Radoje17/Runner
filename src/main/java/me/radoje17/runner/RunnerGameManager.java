@@ -9,14 +9,11 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockPhysicsEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -42,6 +39,24 @@ public class RunnerGameManager implements Listener {
         this.waitingPlayers = new HashMap<>();
 
         this.inventories = new HashMap<>();
+
+        grudve();
+    }
+
+    public void grudve() {
+
+        Bukkit.getScheduler().runTaskTimer(Runner.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                for (Player p : activePlayers.keySet()) {// {
+                    if (p.getInventory().getItem(0) == null || p.getInventory().getItem(0).getAmount() <= 15) {
+                        p.getInventory().addItem(new ItemStack(Material.SNOW_BALL, 1));
+                    }
+                }
+            }
+
+        }, 100L, 100L);
+
     }
 
     public List<RunnerGame> getActiveRunnerGameListCopy() {
@@ -244,7 +259,11 @@ public class RunnerGameManager implements Listener {
 
     @EventHandler
     public void damage(EntityDamageEvent e) {
-        if (e.getEntity() instanceof Player && isWaitingOrInGame((Player) e.getEntity())) {
+        if (e.getEntity() instanceof Player && isInGame((Player) e.getEntity()) && e.getCause() == EntityDamageEvent.DamageCause.FALL) {
+            e.setCancelled(true);
+        }
+
+        if (e.getEntity() instanceof Player && isWaiting((Player) e.getEntity())) {
             e.setCancelled(true);
         }
     }
