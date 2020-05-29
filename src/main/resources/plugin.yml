@@ -3,5 +3,9 @@ version: ${project.version}
 main: me.radoje17.runner.Runner
 depend: [WorldEdit]
 commands:
+  runner:
+    description: Komande za runner
   join:
-    description: Udji u igru
+    description: Magicna komanda
+  leave:
+    description: Izadji iz igre

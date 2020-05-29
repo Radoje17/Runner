@@ -39,12 +39,37 @@ public class PlayerUtils {
 
     public static void setWins(String playerName, int wins) {
         playerData.set(UUIDUtils.getUUID(playerName) + ".wins", wins);
+        saveConfig();
     }
 
     public static void setLosses(String playerName, int losses) {
         playerData.set(UUIDUtils.getUUID(playerName) + ".losses", losses);
+        saveConfig();
     }
 
+    public static void addWin(String name) {
+        PlayerUtils.setWins(name, getWins(name)+1);
+    }
 
+    public static void addLoss(String name) {
+        PlayerUtils.setLosses(name, getLosses(name)+1);
+    }
+
+    public static int getGamesPlayed(String name) {
+        return getLosses(name) + getWins(name);
+    }
+
+    public String getWinLossRatio(String name) {
+
+        if (getLosses(name) == 0) {
+            return "Beskonacno";
+        }
+
+        if (getWins(name) == 0) {
+            return "0";
+        }
+
+        return "0";
+    }
 
 }
